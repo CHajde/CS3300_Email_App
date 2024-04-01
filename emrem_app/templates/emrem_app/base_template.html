@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Email Reminder System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Change this to your preferred primary color */
+            --secondary-color: #6c757d; /* And this for your secondary color */
+        }
+        .navbar, .footer {
+            background-color: var(--primary-color) !important;
+        }
+        .nav-link, .navbar-brand, .footer-text {
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">Email Reminder System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_reminder' %}">Create Reminder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_reminders' %}">View Your Reminders</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout {{ user.username }}</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div class="col-sm-12">
+            <!-- Block content from child html template -->
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container">
+            <span class="text-muted footer-text">Cole Hajde's 2024 Email Reminder System</span>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-Qt9Hug5N8Zq2eMZFfWWh7vIbo3iZNlgbD0nxNzCw+3FZdzTcLDfd2MNgdX8oAK5F" crossorigin="anonymous"></script>
+</body>
+</html>
