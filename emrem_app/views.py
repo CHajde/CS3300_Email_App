@@ -39,3 +39,8 @@ class ReminderDetailView(DetailView):
     model = Reminder
     template_name = 'emrem_app/reminder_detail.html'
     context_object_name = 'reminder'
+    
+    
+def index(request):
+    reminders = Reminder.objects.all()  # Later change to filter by user
+    return render(request, 'emrem_app/index.html', {'reminders': reminders})

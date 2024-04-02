@@ -1,7 +1,35 @@
 {% extends "emrem_app/base_template.html" %}
+{% load static %}
 
-<!-- Replace block content in base_template.html -->
 {% block content %}
-    <h1>Text</h1>
-    <h2>More text</h2>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Left column for information about reminders -->
+        <h2>Welcome to Promptly!</h2>
+        <p>Here's how you can create reminders:</p>
+        <ul>
+            <li>Navigate to the 'Create Reminder' page.</li>
+            <li>Fill in the form with your reminder details.</li>
+            <li>Set the date, time, urgency, and repetition as needed.</li>
+            <li>Save the reminder and it will be listed here for you to view.</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <!-- Right column for displaying list of reminders -->
+        <h2>Your Reminders</h2>
+        {% for reminder in reminders %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ reminder.title }}</h5>
+                    <p class="card-text">
+                        <strong>Urgency:</strong> {{ reminder.get_urgency_display }}<br>
+                        <strong>Time:</strong> {{ reminder.reminder_date|date:"D, d M Y H:i" }}
+                    </p>
+                </div>
+            </div>
+        {% empty %}
+            <p>You have no reminders set.</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

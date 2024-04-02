@@ -1,0 +1,9 @@
+{% extends "emrem_app/base_template.html" %}
+
+{% block content %}
+    <h2>{{ reminder.title }}</h2>
+    <p>{{ reminder.description }}</p>
+    <p>Reminder Date: {{ reminder.reminder_date }}</p>
+    <p>Repetition Interval: {{ reminder.get_repetition_interval_display }}</p>
+    <p>Urgency: {{ reminder.get_urgency_display }}</p>
+{% endblock %}

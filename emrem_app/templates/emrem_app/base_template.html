@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Email Reminder System</title>
+    <title>Promptly</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,8 @@
     <title>EmailReminder</title>
     <style>
         :root {
-            --primary-color: #007bff; /* Change this to your preferred primary color */
-            --secondary-color: #6c757d; /* And this for your secondary color */
+            --primary-color: #5969df; 
+            --secondary-color: #f8b157;
         }
         .navbar, .footer {
             background-color: var(--primary-color) !important;
@@ -25,12 +25,14 @@
         .nav-link, .navbar-brand, .footer-text {
             color: #ffffff !important;
         }
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <img src="{% static 'images/promptly_logo.png' %}" alt="Logo" width="40" height="30" class="d-inline-block align-text-top" style="margin-right: 10px; margin-left: 10px;"/> <!-- Add this line to include the logo in the navbar -->
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">Email Reminder System</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Promptly</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,11 +74,4 @@
             {% endblock %}
         </div>
     </div>
-    <footer class="footer mt-auto py-3 bg-dark">
-        <div class="container">
-            <span class="text-muted footer-text">Cole Hajde's 2024 Email Reminder System</span>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-Qt9Hug5N8Zq2eMZFfWWh7vIbo3iZNlgbD0nxNzCw+3FZdzTcLDfd2MNgdX8oAK5F" crossorigin="anonymous"></script>
-</body>
 </html>
