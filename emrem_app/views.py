@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.detail import DetailView
+from .models import Reminder
 
 # Create your views here.
 def index(request):
@@ -31,3 +33,9 @@ def logout_view(request):
     # Logout the user and redirect to home page for example
     # return redirect('index')
     return render(request, 'emrem_app/logout.html')
+
+
+class ReminderDetailView(DetailView):
+    model = Reminder
+    template_name = 'emrem_app/reminder_detail.html'
+    context_object_name = 'reminder'

@@ -7,4 +7,5 @@ urlpatterns = [
     path('view/', views.view_reminders, name='view_reminders'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('reminder/<int:pk>/', views.ReminderDetailView.as_view(), name='reminder-title'),
 ]
