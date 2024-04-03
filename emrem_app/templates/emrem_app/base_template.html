@@ -15,21 +15,17 @@
     {% bootstrap_messages %}
     <title>EmailReminder</title>
     <style>
-        :root {
-            --primary-color: #5969df; 
-            --secondary-color: #f8b157;
+        .navbar-custom {
+            background: linear-gradient(to right, #856be6, #f8b157); /* Gradient from left to right */
         }
-        .navbar, .footer {
-            background-color: var(--primary-color) !important;
-        }
-        .nav-link, .navbar-brand, .footer-text {
+        .navbar-brand, .nav-link {
             color: #ffffff !important;
         }
 
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <img src="{% static 'images/promptly_logo.png' %}" alt="Logo" width="40" height="30" class="d-inline-block align-text-top" style="margin-right: 10px; margin-left: 10px;"/> <!-- Add this line to include the logo in the navbar -->
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">Promptly</a>
@@ -69,7 +65,6 @@
     </nav>
     
         <div class="col-sm-12">
-            <!-- Block content from child html template -->
             {% block content %}
             {% endblock %}
         </div>

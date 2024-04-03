@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from .models import Reminder
+from .forms import ReminderForm
 
 # Create your views here.
 def index(request):
@@ -12,14 +13,13 @@ def create_reminder(request):
     return render(request, 'emrem_app/create_reminder.html')
 
 
-def view_reminders(request):
-    # Here you would typically get the reminders from the database.
-    # For example, if you have a Reminder model you could do something like this:
-    # reminders = Reminder.objects.filter(user=request.user)
+from django.shortcuts import render
+from .models import Reminder
 
-    # But for now, we'll just pass an empty context or some dummy data
-    context = {'reminders': []}  # Replace with actual data retrieval logic
-    return render(request, 'emrem_app/view_reminders.html', context)
+def view_reminders(request):
+    reminders = Reminder.objects.all()  # This queries all reminders
+    return render(request, 'emrem_app/view_reminders.html', {'reminders': reminders})
+
 
 
 def login_view(request):
@@ -44,3 +44,21 @@ class ReminderDetailView(DetailView):
 def index(request):
     reminders = Reminder.objects.all()  # Later change to filter by user
     return render(request, 'emrem_app/index.html', {'reminders': reminders})
+
+
+def edit_reminder(request, pk):
+    reminder = get_object_or_404(Reminder, pk=pk)
+    if request.method == 'POST':
+        form = ReminderForm(request.POST, instance=reminder)
+        if form.is_valid():
+            form.save()
+            return redirect('view_reminders')
+    else:
+        form = ReminderForm(instance=reminder)
+    return render(request, 'emrem_app/edit_reminder.html', {'form': form})
+
+
+def delete_reminder(request, pk):
+    reminder = get_object_or_404(Reminder, pk=pk)
+    reminder.delete()
+    return redirect('view_reminders')

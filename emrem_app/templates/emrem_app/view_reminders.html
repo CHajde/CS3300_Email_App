@@ -1,6 +1,77 @@
 {% extends "emrem_app/base_template.html" %}
+{% load static %}
 
-<!-- Replace block content in base_template.html -->
+
+<script>
+    function setDeleteLink(deleteUrl) {
+        document.getElementById('deleteConfirmed').href = deleteUrl;
+    }
+</script>
+
+
 {% block content %}
-    <h1>This is view reminders</h1>
+<div class="container mt-4">
+    <h1>Your Reminders</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date/Time</th>
+                <th scope="col">Repetition</th>
+                <th scope="col">Urgency</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reminder in reminders %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ reminder.title }}</td>
+                <td>{{ reminder.description }}</td>
+                <td>{{ reminder.reminder_date|date:"Y-m-d H:i" }}</td>
+                <td>{{ reminder.get_repetition_interval_display }}</td>
+                <td>{{ reminder.get_urgency_display }}</td>
+                <td>
+                    <a href="{% url 'edit_reminder' reminder.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" onclick="setDeleteLink('{% url 'delete_reminder' reminder.id %}')">
+                        Delete
+                    </button>                    
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No reminders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-danger" id="deleteConfirmed">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setDeleteLink(deleteUrl) {
+        document.getElementById('deleteConfirmed').href = deleteUrl;
+    }
+</script>
+
 {% endblock %}

@@ -8,4 +8,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('reminder/<int:pk>/', views.ReminderDetailView.as_view(), name='reminder-title'),
+    path('edit-reminder/<int:pk>/', views.edit_reminder, name='edit_reminder'),
+    path('delete-reminder/<int:pk>/', views.delete_reminder, name='delete_reminder'),
 ]
