@@ -1,13 +1,47 @@
 {% extends "emrem_app/base_template.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-4">
     <h2>Edit Reminder</h2>
-    <form method="post">
+    <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
+        
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="id_title" value="{{ form.instance.title }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="id_description" required>{{ form.instance.description }}</textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_reminder_date" class="form-label">Reminder Date and Time</label>
+            <input type="datetime-local" name="reminder_date" class="form-control" id="id_reminder_date" value="{{ form.instance.reminder_date|date:'Y-m-d\TH:i' }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_repetition_interval" class="form-label">Repetition Interval</label>
+            <select name="repetition_interval" class="form-select" id="id_repetition_interval" required>
+                {% for choice in form.fields.repetition_interval.choices %}
+                    <option value="{{ choice.0 }}" {% if form.instance.repetition_interval == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_urgency" class="form-label">Urgency</label>
+            <select name="urgency" class="form-select" id="id_urgency" required>
+                {% for choice in form.fields.urgency.choices %}
+                    <option value="{{ choice.0 }}" {% if form.instance.urgency == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
         <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'view_reminders' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

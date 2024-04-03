@@ -62,3 +62,14 @@ def delete_reminder(request, pk):
     reminder = get_object_or_404(Reminder, pk=pk)
     reminder.delete()
     return redirect('view_reminders')
+
+
+def create_reminder(request):
+    if request.method == 'POST':
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('view_reminders')
+    else:
+        form = ReminderForm()
+    return render(request, 'emrem_app/create_reminder.html', {'form': form})

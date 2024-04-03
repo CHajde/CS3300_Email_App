@@ -1,6 +1,47 @@
 {% extends "emrem_app/base_template.html" %}
+{% load static %}
 
-<!-- Replace block content in base_template.html -->
 {% block content %}
-    <h1>This is create reminders</h1>
+<div class="container mt-4">
+    <h1>Create Reminder</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="id_title" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            <textarea name="description" class="form-control" id="id_description" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_reminder_date" class="form-label">Reminder Date and Time</label>
+            <input type="datetime-local" name="reminder_date" class="form-control" id="id_reminder_date" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_repetition_interval" class="form-label">Repetition Interval</label>
+            <select name="repetition_interval" class="form-select" id="id_repetition_interval" required>
+                <option value="NO">No Repeat</option>
+                <option value="F5">Again 5 Minutes Later</option>
+                <option value="T25">Two Times Every 5 Minutes After First Reminder</option>
+                <option value="T35">Three Times Every 5 Minutes After First Reminder</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_urgency" class="form-label">Urgency</label>
+            <select name="urgency" class="form-select" id="id_urgency" required>
+                <option value="NU">Not Urgent</option>
+                <option value="SU">Slightly Urgent</option>
+                <option value="VU">Very Urgent</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create Reminder</button>
+    </form>
+</div>
 {% endblock %}

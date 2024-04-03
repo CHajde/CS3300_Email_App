@@ -3,18 +3,34 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6">
-        <!-- Left column for information about reminders -->
-        <h2>Welcome to Promptly!</h2>
-        <p>Here's how you can create reminders:</p>
-        <ul>
-            <li>Navigate to the 'Create Reminder' page.</li>
-            <li>Fill in the form with your reminder details.</li>
-            <li>Set the date, time, urgency, and repetition as needed.</li>
-            <li>Save the reminder and it will be listed here for you to view.</li>
-        </ul>
+    <div class="col-lg-6 col-md-12">
+        <!-- Left column for information about the service and how to create reminders -->
+        <div class="mb-4 p-3 bg-light border rounded">
+            <h2>Welcome to Promptly!</h2>
+            <p class="text-muted">
+                Promptly is your personal reminder assistant, helping you keep track of your important tasks with ease. Set up reminders for anything you need - from everyday errands to critical deadlines, and never miss a beat in your busy life.
+            </p>
+            <h4>Creating Reminders Is Simple:</h4>
+            <ul>
+                <li>Create an account and log in.</li>
+                <li>Navigate to the 'Create Reminder' page.</li>
+                <li>Fill in the form with your reminder details.</li>
+                <li>Set the date, time, urgency, and repetition as needed.</li>
+                <li>Save the reminder, and it will be listed here for you to view.</li>
+            </ul>
+            <div class="p-3 bg-light border rounded mt-4">
+                <h4>Features at a Glance</h4>
+                <ul>
+                    <li>Easy-to-create reminders</li>
+                    <li>Custom repetition intervals</li>
+                    <li>Email notifications</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+            
+        </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-12">
         <!-- Right column for displaying list of reminders -->
         <h2>Your Reminders</h2>
         {% for reminder in reminders %}
