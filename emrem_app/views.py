@@ -42,7 +42,11 @@ class ReminderDetailView(DetailView):
     
     
 def index(request):
-    reminders = Reminder.objects.all()  # Later change to filter by user
+    sort_by = request.GET.get('sort', 'created')  # Default sort is by creation time
+    if sort_by == 'urgency':
+        reminders = Reminder.objects.all().order_by('-urgency')
+    else:
+        reminders = Reminder.objects.all()
     return render(request, 'emrem_app/index.html', {'reminders': reminders})
 
 
