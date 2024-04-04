@@ -23,13 +23,13 @@ def view_reminders(request):
 
 
 def login_view(request):
-    # Placeholder view for login. Eventually, you'll use Django's auth views here.
-    # return redirect('name_of_your_login_template')
+    # Placeholder view for login.
+    # return redirect('name_of_login_template')
     return render(request, 'emrem_app/login.html')
 
 
 def logout_view(request):
-    # Placeholder view for logout. Eventually, you'll use Django's auth views here.
+    # Placeholder view for logout.
     # Logout the user and redirect to home page for example
     # return redirect('index')
     return render(request, 'emrem_app/logout.html')
