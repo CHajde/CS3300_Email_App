@@ -42,11 +42,15 @@ class ReminderDetailView(DetailView):
     
     
 def index(request):
-    sort_by = request.GET.get('sort', 'created')  # Default sort is by creation time
-    if sort_by == 'urgency':
-        reminders = Reminder.objects.all().order_by('-urgency')
+    sort = request.GET.get('sort', None)
+    
+    if sort == 'urgency':
+        reminders = Reminder.objects.all().order_by('-urgency')  # `-` for descending order (Very Urgent first)
+    elif sort == 'date':
+        reminders = Reminder.objects.all().order_by('reminder_date')  # Soonest reminders first
     else:
-        reminders = Reminder.objects.all()
+        reminders = Reminder.objects.all()  # Default ordering, however the database has it
+    
     return render(request, 'emrem_app/index.html', {'reminders': reminders})
 
 
