@@ -81,3 +81,4 @@ def create_reminder(request):
     else:
         form = ReminderForm()
     return render(request, 'emrem_app/create_reminder.html', {'form': form})
+
