@@ -3,18 +3,37 @@ from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from .models import Reminder
 from .forms import ReminderForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Reminder
 
 # Create your views here.
 def index(request):
     return render(request, 'emrem_app/index.html')
 
 
+@login_required
 def create_reminder(request):
-    return render(request, 'emrem_app/create_reminder.html')
+    if request.method == 'POST':
+        form = ReminderForm(request.POST)
+        if form.is_valid():
+            reminder = form.save(commit=False)
+            print("Form is valid. User:", request.user)  # Debug print
+            reminder.user = request.user
+            reminder.save()
+            print("Reminder saved with user_id:", reminder.user_id)  # Confirm user_id is set
+            return redirect('view_reminders')
+        else:
+            print("Form errors:", form.errors)  # Print form errors
+    else:
+        form = ReminderForm()
+    return render(request, 'emrem_app/create_reminder.html', {'form': form})
 
 
-from django.shortcuts import render
-from .models import Reminder
+
 
 def view_reminders(request):
     reminders = Reminder.objects.all()  # This queries all reminders
@@ -72,13 +91,12 @@ def delete_reminder(request, pk):
     return redirect('view_reminders')
 
 
-def create_reminder(request):
+def register(request):
     if request.method == 'POST':
-        form = ReminderForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('view_reminders')
+            return redirect('login')  # Redirect to the login page after successful registration
     else:
-        form = ReminderForm()
-    return render(request, 'emrem_app/create_reminder.html', {'form': form})
-
+        form = SignUpForm()
+    return render(request, 'registration/register.html', {'form': form})

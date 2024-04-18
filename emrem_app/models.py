@@ -1,10 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Reminder(models.Model):
+    
+    # Using ForeignKey because users can have more than one reminder
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reminders')
+    
     class Urgency(models.TextChoices):
         NOT_URGENT = 'NU', _('Not Urgent')
         SLIGHTLY_URGENT = 'SU', _('Slightly Urgent')

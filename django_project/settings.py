@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
 ROOT_URLCONF = 'django_project.urls'
 
 TEMPLATES = [
