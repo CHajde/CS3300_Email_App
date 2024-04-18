@@ -12,7 +12,21 @@ from .models import Reminder
 
 # Create your views here.
 def index(request):
-    return render(request, 'emrem_app/index.html')
+    if not request.user.is_authenticated:
+        
+        return render(request, 'emrem_app/index.html', {'reminders': None})
+    
+    sort = request.GET.get('sort', None)
+    
+    if sort == 'urgency':
+        reminders = Reminder.objects.filter(user=request.user).order_by('-urgency')
+    elif sort == 'date':
+        reminders = Reminder.objects.filter(user=request.user).order_by('reminder_date')
+    else:
+        reminders = Reminder.objects.filter(user=request.user)
+
+    return render(request, 'emrem_app/index.html', {'reminders': reminders})
+
 
 
 @login_required
@@ -58,19 +72,6 @@ class ReminderDetailView(DetailView):
     model = Reminder
     template_name = 'emrem_app/reminder_detail.html'
     context_object_name = 'reminder'
-    
-    
-def index(request):
-    sort = request.GET.get('sort', None)
-    
-    if sort == 'urgency':
-        reminders = Reminder.objects.all().order_by('-urgency')  # `-` for descending order (Very Urgent first)
-    elif sort == 'date':
-        reminders = Reminder.objects.all().order_by('reminder_date')  # Soonest reminders first
-    else:
-        reminders = Reminder.objects.all()  # Default ordering, however the database has it
-    
-    return render(request, 'emrem_app/index.html', {'reminders': reminders})
 
 
 def edit_reminder(request, pk):

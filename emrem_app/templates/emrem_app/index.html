@@ -32,23 +32,31 @@
     </div>
     <div class="col-lg-6 col-md-12">
         <!-- Right column for displaying list of reminders -->
-        <h2>Your Reminders</h2>
+        {% if user.is_authenticated %}
+        <h2>{{ user.username }}'s Reminders</h2>
         <div class="mb-2">
         <a href="?sort=urgency" class="btn btn-outline-secondary mb-3">Sort by Urgency</a>
         <a href="?sort=date" class="btn btn-outline-secondary mb-3">Sort by Date</a>
-        {% for reminder in reminders %}
-            <div class="card mb-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ reminder.title }}</h5>
-                    <p class="card-text">
-                        <strong>Urgency:</strong> {{ reminder.get_urgency_display }}<br>
-                        <strong>Time:</strong> {{ reminder.reminder_date|date:"D, d M Y H:i" }}
-                    </p>
+        {% if reminders %}
+            {% for reminder in reminders %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ reminder.title }}</h5>
+                        <p class="card-text">
+                            <strong>Urgency:</strong> {{ reminder.get_urgency_display }}<br>
+                            <strong>Time:</strong> {{ reminder.reminder_date|date:"D, d M Y H:i" }}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        {% empty %}
+            {% endfor %}
+        {% else %}
             <p>You have no reminders set.</p>
-        {% endfor %}
+        {% endif %}
+        </div>
+        {% else %}
+        <h2>Reminders</h2>
+        <p>Please <a href="{% url 'login' %}">log in</a> to view your reminders.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
