@@ -49,8 +49,13 @@ def create_reminder(request):
 
 
 
+@login_required
 def view_reminders(request):
-    reminders = Reminder.objects.all()  # This queries all reminders
+    if request.user.is_authenticated:
+        reminders = Reminder.objects.filter(user=request.user)
+    else:
+        reminders = []  # Or redirect to login page
+
     return render(request, 'emrem_app/view_reminders.html', {'reminders': reminders})
 
 
