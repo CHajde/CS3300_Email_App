@@ -3,11 +3,6 @@ from .models import Reminder
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
-class ReminderForm(forms.ModelForm):
-    class Meta:
-        model = Reminder
-        fields = ['title', 'description', 'reminder_date', 'repetition_interval', 'urgency']
         
         
 class ReminderForm(forms.ModelForm):

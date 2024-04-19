@@ -61,15 +61,10 @@ def view_reminders(request):
 
 
 def login_view(request):
-    # Placeholder view for login.
-    # return redirect('name_of_login_template')
     return render(request, 'emrem_app/login.html')
 
 
 def logout_view(request):
-    # Placeholder view for logout.
-    # Logout the user and redirect to home page for example
-    # return redirect('index')
     return render(request, 'emrem_app/logout.html')
 
 
@@ -79,6 +74,7 @@ class ReminderDetailView(DetailView):
     context_object_name = 'reminder'
 
 
+@login_required
 def edit_reminder(request, pk):
     reminder = get_object_or_404(Reminder, pk=pk)
     if request.method == 'POST':
