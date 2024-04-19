@@ -34,6 +34,7 @@ class Reminder(models.Model):
         choices=Urgency.choices,
         default=Urgency.NOT_URGENT,
     )
+    sent = models.BooleanField(default=False)  # Indicates if the reminder has been sent
 
     def __str__(self):
         return self.title
