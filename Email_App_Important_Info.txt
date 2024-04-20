@@ -21,15 +21,3 @@ Objective: Test that a user can edit an existing reminder and see the changes re
 
 Run tests with: python manage.py test --verbosity 2
 
-
-Superuser login:
-Username: chajde
-Password: Caboose
-
-Password for test user:
-Username: Tali
-Password: Boshtet123
-
-Promptly Email:
-Email: PromptlyReminders@gmail.com
-Password: ReminderSystem123!
