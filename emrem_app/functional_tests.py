@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# Selenium testing --------------------------------------------
+
 class UserRegistrationTest(StaticLiveServerTestCase):
     def setUp(self):
         # Setup code to open the web browser
