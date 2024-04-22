@@ -12,8 +12,11 @@ class Command(BaseCommand):
     def send_email(self, subject, body, to_email, reminder_time, username, urgency_label):
         msg = EmailMessage()
         
+        # Convert reminder_time to local timezone
+        local_reminder_time = timezone.localtime(reminder_time)
+        
         # Setting the subject to include reminder title and time
-        msg['Subject'] = f"{subject} Today at {reminder_time.strftime('%H:%M')}"
+        msg['Subject'] = f"{subject} Today at {local_reminder_time.strftime('%H:%M')}"
         msg['From'] = 'PromptlyReminders@gmail.com'
         msg['To'] = to_email
 
