@@ -8,7 +8,6 @@ from django.contrib.auth import login
 from .forms import SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import Reminder
 
 # Create your views here.
 def index(request):
