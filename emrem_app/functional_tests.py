@@ -20,7 +20,7 @@ class UserRegistrationTest(StaticLiveServerTestCase):
 
     def test_user_registration_flow(self):
         # Directly navigate to the registration page
-        self.browser.get(self.live_server_url + '/register/')  # Adjust the URL based on your URLconf
+        self.browser.get(self.live_server_url + '/register/')  # Adjust the URL based on URLconf
 
         # Fill out the registration form
         self.browser.find_element(By.NAME, 'username').send_keys('newuser')
